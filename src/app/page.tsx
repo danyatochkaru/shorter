@@ -21,7 +21,6 @@ import {ParamsIcon} from "@/assets/Params";
 import classNames from "classnames";
 import Link from "next/link";
 import axios from "axios";
-import toast from "react-hot-toast";
 
 export default function Home() {
     const {
@@ -31,12 +30,11 @@ export default function Home() {
         error,
         setPassword,
         setError,
-        result,
         setResult,
         timeAlive,
         setTimeAlive,
         clickCount,
-        setClickCount, setLoading, loading
+        setClickCount, setLoading
     } = useStore()
 
     const {history, append} = useHistory()
@@ -62,7 +60,7 @@ export default function Home() {
 
         setLoading(true)
 
-        axios.post("/api/short", {
+        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/short`, {
             originalUrl: url.trim(),
             password,
             clickCount,
@@ -73,7 +71,7 @@ export default function Home() {
                 setResult(`http://192.168.0.146:3000/l/${response.data.code}`)
                 append({
                     originalUrl: url,
-                    shortedUrl: `http://192.168.0.146:3000/l/${response.data.code}`,
+                    shortedUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/l/${response.data.code}`,
                     date: new Date()
                 })
             })
@@ -85,10 +83,6 @@ export default function Home() {
                 setLoading(false)
             })
     }
-
-    useEffect(() => {
-        toast.success("Добро пожаловать!")
-    }, [])
 
     return (
         <>

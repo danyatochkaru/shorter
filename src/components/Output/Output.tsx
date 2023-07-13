@@ -17,14 +17,13 @@ export function Output() {
                 </div>
             ) : (result && <>
                 <p className={s.link}
-                   onClick={(e) => {
-                       toast.success("Скопировано")
-                       // navigator.clipboard?.writeText(result)
-                       //     .then(() => toast.success("Скопировано"))
-                       //     .catch((error) => {
-                       //         console.error(error)
-                       //         toast.error("Произошла ошибка")
-                       //     })
+                   onClick={() => {
+                       navigator.clipboard?.writeText(result)
+                           .then(() => toast.success("Скопировано"))
+                           .catch((error) => {
+                               console.error(error)
+                               toast.error("Произошла ошибка")
+                           })
                    }}>
                     <span>{result}</span> <CopyIcon/></p>
                 <p className={"text-center"}>Ваша ссылка готова! Нажмите на неё, чтобы скопировать</p>
