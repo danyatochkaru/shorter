@@ -67,8 +67,7 @@ export default function Home() {
             timeAlive
         })
             .then(response => {
-                console.log(response)
-                setResult(`http://192.168.0.146:3000/l/${response.data.code}`)
+                setResult(`${process.env.NEXT_PUBLIC_BASE_URL}/l/${response.data.code}`)
                 append({
                     originalUrl: url,
                     shortedUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/l/${response.data.code}`,
