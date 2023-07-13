@@ -1,0 +1,41 @@
+.output {
+  @apply flex flex-col items-center my-10 gap-y-2;
+
+  .loading {
+    @apply flex gap-x-1 items-center px-1.5 py-0.5 rounded-md bg-zinc-800;
+
+    svg {
+      @apply h-5 w-5;
+    }
+  }
+
+  .link {
+    @apply flex gap-x-2 items-center;
+
+    span {
+      @apply px-1.5 py-0.5 rounded-md bg-zinc-800 cursor-copy transition-all;
+    }
+
+    path {
+      @apply transition-all;
+    }
+
+    svg {
+      @apply transition-transform;
+    }
+
+    &:hover {
+      @apply text-main;
+
+      path {
+        @apply stroke-light;
+      }
+    }
+
+    &:active {
+      svg {
+        @apply transform translate-y-0.5;
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --main-color: #98ec65;
+  --light-color: #ececec;
+  --dark-color: #100f13;
+  --text-main-color: var(--light-color);
+  --background-color: var(--dark-color);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-main-color);
+  background-color: var(--background-color);
+  scrollbar-gutter: stable;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex: 0 0 auto;
+}
+
+input, button {
+  outline: none;
+}
+
+*::-webkit-scrollbar {
+  max-width: 10px;
+  min-width: 1px;
+
+  &-corner {
+    background-color: var(--dark-color);
+  }
+
+  &-thumb {
+    background-color: #27272a;
+    border-radius: 8px;
+  }
+
+  &-track {
+    background-color: var(--dark-color);
+  }
+}

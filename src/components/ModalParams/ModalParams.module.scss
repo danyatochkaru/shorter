@@ -1,0 +1,40 @@
+.overlay {
+  @apply invisible opacity-0 transition-all duration-300;
+  &.show {
+    @apply visible opacity-100;
+  }
+
+  @apply fixed inset-0 z-50 bg-zinc-900/80 backdrop-blur-sm;
+
+  .content {
+    @apply flex flex-col fixed h-full left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 gap-4  border-main bg-dark p-6 shadow-lg duration-200 overflow-y-auto md:overflow-hidden md:rounded-lg md:border md:h-fit md:w-full;
+
+    .header {
+      @apply flex justify-between;
+
+      .title {
+        @apply font-medium text-lg;
+      }
+
+      button {
+        @apply font-medium text-xl leading-none rounded-md border border-solid border-zinc-700 px-3 py-3 transition-colors;
+
+        path {
+          @apply transition-all;
+        }
+
+        &:hover {
+          @apply border-main;
+
+          path {
+            @apply fill-main;
+          }
+        }
+      }
+    }
+
+    .param {
+      @apply w-full;
+    }
+  }
+}

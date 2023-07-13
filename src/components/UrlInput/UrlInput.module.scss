@@ -1,0 +1,15 @@
+.url_input {
+  @apply bg-transparent rounded-md w-full max-w-2xl min-w-[340px] border-solid border border-zinc-800 placeholder-neutral-500 text-light px-3 py-2 transition-colors font-medium;
+
+  &:hover {
+    @apply border-neutral-500;
+  }
+
+  &:focus {
+    @apply bg-zinc-800 border-zinc-800;
+  }
+
+  &.error {
+    @apply border-rose-400;
+  }
+}

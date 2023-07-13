@@ -1,0 +1,43 @@
+.dropdown_menu {
+  @apply relative flex flex-col gap-y-2.5 min-w-[200px] h-fit;
+
+  > input {
+    @apply text-start bg-zinc-900 rounded-full px-3 py-2 transition-colors border border-solid border-transparent placeholder-neutral-500 text-light cursor-pointer;
+
+    &:hover {
+      @apply bg-zinc-800;
+    }
+
+    &:focus {
+      @apply bg-transparent border-light rounded-lg;
+    }
+
+    &.off {
+      @apply text-neutral-500;
+    }
+  }
+
+  .icon {
+    @apply absolute right-3 bottom-4 transition-all duration-300 cursor-pointer;
+  }
+
+  &:has(input:focus) .icon {
+    @apply rotate-180;
+  }
+
+  &:has(input:focus) .icon path {
+    @apply stroke-light;
+  }
+
+  > .list {
+    @apply overflow-auto max-h-48 absolute top-[calc(100%_+_0.4rem)] rounded-md bg-neutral-800 p-1 w-4/5 transition-all z-10;
+  }
+
+  > .list > p {
+    @apply hover:bg-zinc-700 rounded transition-colors p-1 cursor-pointer;
+  }
+
+  > .list:not(.list:hover) > p.selected {
+    @apply bg-zinc-700;
+  }
+}

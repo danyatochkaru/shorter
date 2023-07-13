@@ -1,0 +1,28 @@
+.submit_button {
+  @apply rounded-md border border-solid border-main px-3 py-2 transition-all relative;
+
+  &:not(&:disabled) {
+    &:hover {
+      @apply rounded-lg text-main;
+    }
+
+    &:active {
+      @apply bg-main text-dark;
+    }
+  }
+
+
+  svg {
+    @apply invisible w-5 h-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+  }
+
+  &:disabled {
+    p {
+      @apply invisible;
+    }
+
+    svg {
+      @apply visible;
+    }
+  }
+}
