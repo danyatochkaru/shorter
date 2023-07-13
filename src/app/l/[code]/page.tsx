@@ -5,7 +5,7 @@ import {redirect} from "next/navigation";
 export default async function RedirectPage({params}: {
     params: Record<string, string>
 }) {
-    const response = await axios.get(`http://${process.env.NEXT_PUBLIC_BASE_URL}/api/short?code=${params?.code}`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/short?code=${params?.code}`, {
         validateStatus: (status) => status < 500
     })
 
