@@ -9,18 +9,12 @@ import {useRouter, useSearchParams} from "next/navigation";
 
 export function ModalParams({className, ...props}: React.HTMLAttributes<HTMLDivElement>) {
     const {
-        url,
-        setUrl,
         password,
-        error,
         setPassword,
-        setError,
-        result,
-        setResult,
         timeAlive,
         setTimeAlive,
         clickCount,
-        setClickCount, setLoading, loading
+        setClickCount,
     } = useStore()
 
     const params = useSearchParams()

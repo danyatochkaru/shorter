@@ -32,19 +32,18 @@ input, button {
 }
 
 *::-webkit-scrollbar {
-  max-width: 10px;
-  min-width: 1px;
+  width: 5px;
+  height: 5px;
 
   &-corner {
-    background-color: var(--dark-color);
+    @apply bg-transparent;
   }
 
   &-thumb {
-    background-color: #27272a;
-    border-radius: 8px;
+    @apply bg-zinc-700 hover:bg-main rounded-full;
   }
 
   &-track {
-    background-color: var(--dark-color);
+    @apply bg-transparent;
   }
 }
