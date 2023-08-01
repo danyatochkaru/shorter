@@ -96,21 +96,25 @@ export default function Home() {
                                   onBlur={() => setError(null)}
                         />
                         <div className={s.options}>
-                            <DropdownInput title={"Время жизни"}
-                                           placeholder={"Не ограничено"}
-                                           disabled
-                                           items={TIMES_ALIVE}
-                                           value={timeAlive}
-                                           setValue={setTimeAlive}
+                            <DropdownInput
+                                id={"main-timeAlive"}
+                                title={"Время жизни"}
+                                placeholder={"Не ограничено"}
+                                disabled
+                                items={TIMES_ALIVE}
+                                value={timeAlive}
+                                setValue={setTimeAlive}
                             />
-                            <DropdownInput title={"Переходы"}
-                                           placeholder={"Сколько угодно"}
-                                           onlyNumbers
-                                           items={CLICKS_COUNT}
-                                           value={clickCount}
-                                           setValue={setClickCount}
+                            <DropdownInput
+                                id={"main-clickCount"}
+                                title={"Переходы"}
+                                placeholder={"Сколько угодно"}
+                                onlyNumbers
+                                items={CLICKS_COUNT}
+                                value={clickCount}
+                                setValue={setClickCount}
                             />
-                            <PasswordInput title={"Ссылка с паролем"} value={password}
+                            <PasswordInput id={"main-Password"} title={"Ссылка с паролем"} value={password}
                                            onChange={e => setPassword(e.target.value)}/>
                         </div>
                     </div>
@@ -129,10 +133,10 @@ export default function Home() {
                 </form>
                 <ErrorMessage/>
                 <Output/>
-                <div className={`flex flex-col items-center`}>
+                {/*<div className={`flex flex-col items-center`}>
                     {history.slice(history.length - 3, history.length).reverse().map(i => (
                         <p key={i.date.toString()}>{i.originalUrl} {`->`} {i.shortedUrl} | {(new Date(i.date)).toLocaleString("ru-RU")}</p>))}
-                </div>
+                </div>*/}
             </main>
             <Footer/>
         </>

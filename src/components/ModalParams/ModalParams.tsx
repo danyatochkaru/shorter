@@ -44,23 +44,27 @@ export function ModalParams({className, ...props}: React.HTMLAttributes<HTMLDivE
                 </button>
 
             </div>
-            <DropdownInput title={"Время жизни"}
-                           placeholder={"Не ограничено"}
-                           disabled
-                           items={TIMES_ALIVE}
-                           value={timeAlive}
-                           setValue={setTimeAlive}
-                           className={s.param}
+            <DropdownInput
+                id={"window-timeAlive"}
+                title={"Время жизни"}
+                placeholder={"Не ограничено"}
+                disabled
+                items={TIMES_ALIVE}
+                value={timeAlive}
+                setValue={setTimeAlive}
+                className={s.param}
             />
-            <DropdownInput title={"Переходы"}
-                           placeholder={"Сколько угодно"}
-                           onlyNumbers
-                           items={CLICKS_COUNT}
-                           value={clickCount}
-                           setValue={setClickCount}
-                           className={s.param}
+            <DropdownInput
+                id={"window-clickCount"}
+                title={"Переходы"}
+                placeholder={"Сколько угодно"}
+                onlyNumbers
+                items={CLICKS_COUNT}
+                value={clickCount}
+                setValue={setClickCount}
+                className={s.param}
             />
-            <PasswordInput title={"Ссылка с паролем"} value={password}
+            <PasswordInput id={"window-Password"} title={"Ссылка с паролем"} value={password}
                            onChange={e => setPassword(e.target.value)}
                            className={s.param}
             />

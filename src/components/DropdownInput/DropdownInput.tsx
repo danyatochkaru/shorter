@@ -7,6 +7,7 @@ import {FlatArrowIcon} from "@/assets/FlatArrowIcon";
 export type DropdownItems = { value?: string | "off", title: string }
 
 export function DropdownInput({
+                                  id,
                                   className,
                                   disabled,
                                   title,
@@ -16,15 +17,16 @@ export function DropdownInput({
                                   setValue,
                                   ...props
                               }: React.InputHTMLAttributes<HTMLInputElement> & {
-    items: DropdownItems[]
+    id: string,
+    items: DropdownItems[],
     onlyNumbers?: boolean,
     setValue: (value: any) => void,
 }) {
     const [isShow, setIsShow] = useState(false)
 
     return <div className={s.dropdown_menu}>
-        {title && <label htmlFor={title} className={"w-fit"}>{title}</label>}
-        <input onFocus={() => setIsShow(true)} onBlur={() => setIsShow(false)} id={title} autoComplete={"none"}
+        {title && <label htmlFor={id} className={"w-fit"}>{title}</label>}
+        <input onFocus={() => setIsShow(true)} onBlur={() => setIsShow(false)} id={id} autoComplete={"none"}
                className={classNames({
                    [s.off]: value === ""
                }, className)}
@@ -35,7 +37,7 @@ export function DropdownInput({
                }}
                {...props}
         />
-        <label htmlFor={title} className={s.icon}><FlatArrowIcon/></label>
+        <label htmlFor={id} className={s.icon}><FlatArrowIcon/></label>
         <div
             className={classNames(s.list, {
                 "visible opacity-100": isShow,

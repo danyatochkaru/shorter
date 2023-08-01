@@ -18,6 +18,8 @@ export default async function RedirectPage({params}: {
             response.status >= 400 && <>
                 <h2 className={"font-medium text-lg"}>Произошла ошибка</h2>
                 <p className={"px-1.5 py-0.5 rounded-md bg-zinc-800"}>{response.data?.msg || "Неизвестная ошибка"}</p>
+                <Link href={"/"} className={"mt-4 underline underline-offset-2 hover:text-main transition"}>Перейти на
+                    главную</Link>
             </>
         }
         {

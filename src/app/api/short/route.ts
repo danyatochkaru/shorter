@@ -1,9 +1,6 @@
 import {NextResponse} from "next/server";
 import {customAlphabet} from "nanoid/async";
-
-const DB = [
-    {id: "1", code: "test", originalUrl: "piybeep.com", password: null, timeAlive: null, clickCount: null}
-]
+import prisma from "@/utils/prisma";
 
 export async function GET(request: Request) {
     const {searchParams} = new URL(request.url)
@@ -11,30 +8,36 @@ export async function GET(request: Request) {
         return NextResponse.json({msg: "Не указан код"}, {status: 400})
     }
 
-    const entity = DB.find(i => i.code == searchParams.get('code'))
+    try {
+        const existingLink = await prisma.links.findUnique({
+            where: {code: searchParams.get('code') as string}
+        })
 
-    if (!entity) {
-        return NextResponse.json({msg: "Ссылка не найдена"}, {status: 404})
-    }
-
-    if (entity.password) {
-        if (!searchParams.has('password')) {
-            return NextResponse.json({msg: "Необходимо ввести пароль"}, {status: 401})
+        if (!existingLink) {
+            return NextResponse.json({msg: "Ссылка не найдена"}, {status: 404})
         }
 
-        const password = searchParams.get('password')!
+        if (existingLink.password) {
+            if (!searchParams.has('password')) {
+                return NextResponse.json({msg: "Необходимо ввести пароль"}, {status: 401})
+            }
 
-        if (password !== entity.password) {
-            return NextResponse.json({msg: "Неверный пароль"}, {status: 403})
+            const password = searchParams.get('password')!
+
+            if (password !== existingLink.password) {
+                return NextResponse.json({msg: "Неверный пароль"}, {status: 403})
+            }
         }
+
+        if (existingLink.clickCount !== null && !existingLink.clickCount || existingLink.timeAlive && new Date(existingLink.timeAlive) < new Date()) {
+            return NextResponse.json({msg: "Ссылка больше недоступна"}, {status: 410})
+        }
+
+        return NextResponse.json(existingLink)
+    } catch (error) {
+        console.error(error)
+        return NextResponse.json({msg: "Произошла ошибка"}, {status: 500})
     }
-
-    if (entity.clickCount !== null && !entity.clickCount || entity.timeAlive && new Date(entity.timeAlive) < new Date()) {
-        return NextResponse.json({msg: "Ссылка больше недоступна"}, {status: 410})
-    }
-
-    return NextResponse.json(entity)
-
 }
 
 export async function POST(request: Request) {
@@ -44,26 +47,34 @@ export async function POST(request: Request) {
     }
 
     if (!(body.clickCount || body.timeAlive || body.password)) {
-        const attempt = DB.find(i => i.originalUrl == body.originalUrl)
+        const existingLinks = await prisma.links.findMany({
+            where: {originalUrl: body.originalUrl.replace('https://', '').replace('http://', '')}
+        })
 
-        if (attempt) {
-            if (!attempt.password && !attempt.clickCount && !attempt.timeAlive) {
-                return NextResponse.json(attempt)
+        if (existingLinks.length > 0) {
+            const link = existingLinks.find((l: any) =>
+                (!l.password && !l.clickCount && !l.timeAlive)
+            )
+            if (link) {
+                return NextResponse.json(link)
             }
         }
     }
 
     const code = await customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6)()
 
-    const new_entity = {
-        id: String(DB.length + 1),
-        code, originalUrl: body.originalUrl,
-        password: body?.password || null,
-        timeAlive: body?.timeAlive || null,
-        clickCount: body?.clickCount || null,
-    };
+    const new_link = await prisma.links.create({
+        data: {
+            code,
+            originalUrl: body.originalUrl.replace('https://', '').replace('http://', ''),
+            password: body?.password || null,
+            timeAlive: body?.timeAlive || null,
+            clickCount: body?.clickCount || null,
+        },
+        select: {
+            code: true
+        }
+    })
 
-    DB.push(new_entity)
-
-    return NextResponse.json(new_entity)
+    return NextResponse.json(new_link)
 }
